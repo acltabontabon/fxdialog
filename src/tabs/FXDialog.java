@@ -26,60 +26,42 @@ public class FXDialog extends Application {
     
     private static Parent root;
     private static Stage primaryStage;
+    private static FXDialog main;
     
-    public FXDialog(String message, Dialog dialogType) throws IOException {
-        primaryStage = new Stage();
+    static {
+        main = new FXDialog();
+    }
+    
+    public FXDialog() {
+        try {
+            primaryStage = new Stage();
 
-        root = FXMLLoader.load(getClass().getResource("FXDialogUI.fxml"));
-        Scene scene = new Scene(root, Color.TRANSPARENT);
+            root = FXMLLoader.load(getClass().getResource("FXDialogUI.fxml"));
+            Scene scene = new Scene(root, Color.TRANSPARENT);
 
-        primaryStage.centerOnScreen();
-        primaryStage.setScene(scene);
-        primaryStage.initModality(Modality.APPLICATION_MODAL);
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-        primaryStage.show();
+            primaryStage.centerOnScreen();
+            primaryStage.setScene(scene);
+            primaryStage.initModality(Modality.APPLICATION_MODAL);
+            primaryStage.initStyle(StageStyle.TRANSPARENT);
 
-        scaleTransition(0, 0, 1, 1, 0.6);
-        
-        root.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent me) {
-                initX = me.getScreenX() - primaryStage.getX();
-                initY = me.getScreenY() - primaryStage.getY();
-            }
-        });
+            root.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent me) {
+                    initX = me.getScreenX() - primaryStage.getX();
+                    initY = me.getScreenY() - primaryStage.getY();
+                }
+            });
 
-        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent me) {
-                primaryStage.setX(me.getScreenX() - initX);
-                primaryStage.setY(me.getScreenY() - initY);
-            }
-        });
-        
-        if (dialogType == Dialog.ERROR) {
-            FXDialogUIController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
-            FXDialogUIController.headerPane.setStyle("-fx-background-color: red;");
-            FXDialogUIController.lblHeader.setText("ERROR");
-            
-            primaryStage.setTitle("Error");
+            root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent me) {
+                    primaryStage.setX(me.getScreenX() - initX);
+                    primaryStage.setY(me.getScreenY() - initY);
+                }
+            });
+        } catch (IOException ex) {
+            Logger.getLogger(FXDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else if (dialogType == Dialog.INORMATION) {
-            FXDialogUIController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
-            FXDialogUIController.headerPane.setStyle("-fx-background-color: blue;");
-            FXDialogUIController.lblHeader.setText("INFORMATION");
-            
-            primaryStage.setTitle("Information");
-        }
-        else if (dialogType == Dialog.WARNING) {
-            FXDialogUIController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
-            FXDialogUIController.headerPane.setStyle("-fx-background-color: orange;");
-            FXDialogUIController.lblHeader.setText("WARNING");
-            
-            primaryStage.setTitle("Warning");
-        }
-        
-        FXDialogUIController.lblMsg.setText(message);
     }
 
     @Override
@@ -108,11 +90,35 @@ public class FXDialog extends Application {
         });
     }
 
-    public static void showMessageDialog(String message, Dialog dialogType) {    
-        try {
-            new FXDialog(message, dialogType);
-        } catch (IOException ex) {
-            Logger.getLogger(FXDialog.class.getName()).log(Level.SEVERE, null, ex);
+    private void showDialog() {
+        primaryStage.show();
+        scaleTransition(0, 0, 1, 1, 0.6);
+    }
+
+    public static void showMessageDialog(String message, Dialog dialogType) {
+        main.showDialog();
+
+        if (dialogType == Dialog.ERROR) {
+            FXDialogUIController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
+            FXDialogUIController.headerPane.setStyle("-fx-background-color: red;");
+            FXDialogUIController.lblHeader.setText("ERROR");
+
+            primaryStage.setTitle("Error");
+        } else if (dialogType == Dialog.INORMATION) {
+            FXDialogUIController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
+            FXDialogUIController.headerPane.setStyle("-fx-background-color: blue;");
+            FXDialogUIController.lblHeader.setText("INFORMATION");
+
+            primaryStage.setTitle("Information");
+        } else if (dialogType == Dialog.WARNING) {
+            FXDialogUIController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
+            FXDialogUIController.headerPane.setStyle("-fx-background-color: orange;");
+            FXDialogUIController.lblHeader.setText("WARNING");
+
+            primaryStage.setTitle("Warning");
         }
+
+        FXDialogUIController.lblMsg.setText(message);
+
     }
 }
