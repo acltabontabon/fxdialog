@@ -1,9 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="320.0" xmlns:fx="http://javafx.com/fxml" fx:controller="tabs.FXDialogUIController" />
+<AnchorPane id="AnchorPane" minHeight="201.9609375" prefHeight="201.9609375" prefWidth="382.0" styleClass="root" xmlns:fx="http://javafx.com/fxml" fx:controller="tabs.FXDialogUIController">
+  <children>
+    <AnchorPane id="AnchorPane" layoutX="6.0" layoutY="5.0" prefHeight="192.0" prefWidth="370.0" styleClass="root">
+      <children>
+        <AnchorPane layoutY="18.0" prefHeight="36.0" prefWidth="395.9998779296875" style="-fx-background-color:orange;" AnchorPane.leftAnchor="-11.0" AnchorPane.rightAnchor="-11.0">
+          <children>
+            <Label layoutX="109.0" layoutY="3.0" text="WARNING" textFill="WHITE">
+              <font>
+                <Font name="System Bold" size="25.0" />
+              </font>
+            </Label>
+          </children>
+        </AnchorPane>
+        <VBox layoutX="15.0" layoutY="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="64.0" minWidth="64.0" prefHeight="64.0" prefWidth="64.0">
+          <children>
+            <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="file:/C:/Users/Administrator/Pictures/warning.png" />
+              </image>
+            </ImageView>
+          </children>
+        </VBox>
+        <Label layoutX="15.0" layoutY="73.0" prefHeight="64.0" prefWidth="341.0" text="This is a sample dialog with a sample warning message pelase send us feedback." textAlignment="JUSTIFY" wrapText="true">
+          <font>
+            <Font size="13.0" />
+          </font>
+        </Label>
+        <Button layoutX="273.0" layoutY="146.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="83.0" text="OK" />
+      </children>
+      <effect>
+        <DropShadow height="25.03174603174603" radius="12.015873015873016" width="25.03174603174603" />
+      </effect>
+      <stylesheets>
+        <URL value="file:/D:/NetbeansProjects/FXDialog/src/tabs/main.css" />
+      </stylesheets>
+    </AnchorPane>
+  </children>
+  <stylesheets>
+    <URL value="@main.css" />
+  </stylesheets>
+</AnchorPane>

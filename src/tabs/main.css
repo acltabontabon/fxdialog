@@ -1,5 +1,9 @@
 
 .root { 
-    display: block;
+    -fx-background-color:linear-gradient(white,#DDDDDD);
+    -fx-border-color: transparent;
+    -fx-border-radius: 20;
+    -fx-padding: 10 10 10 10;
+    -fx-background-radius: 20;
 }
 
