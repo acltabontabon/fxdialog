@@ -61,16 +61,22 @@ public class FXDialog extends Application {
             FXDialogUIController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
             FXDialogUIController.headerPane.setStyle("-fx-background-color: red;");
             FXDialogUIController.lblHeader.setText("ERROR");
+            
+            primaryStage.setTitle("Error");
         }
         else if (dialogType == Dialog.INORMATION) {
             FXDialogUIController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
             FXDialogUIController.headerPane.setStyle("-fx-background-color: blue;");
             FXDialogUIController.lblHeader.setText("INFORMATION");
+            
+            primaryStage.setTitle("Information");
         }
         else if (dialogType == Dialog.WARNING) {
             FXDialogUIController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
             FXDialogUIController.headerPane.setStyle("-fx-background-color: orange;");
             FXDialogUIController.lblHeader.setText("WARNING");
+            
+            primaryStage.setTitle("Warning");
         }
         
         FXDialogUIController.lblMsg.setText(message);
