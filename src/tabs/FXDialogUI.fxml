@@ -37,7 +37,7 @@
             <Font size="13.0" />
           </font>
         </Label>
-        <Button layoutX="273.0" layoutY="146.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="83.0" text="OK" />
+        <Button layoutX="273.0" layoutY="146.0" mnemonicParsing="false" onAction="#ok" prefHeight="34.0" prefWidth="83.0" text="OK" />
       </children>
       <effect>
         <DropShadow height="25.03174603174603" radius="12.015873015873016" width="25.03174603174603" />
