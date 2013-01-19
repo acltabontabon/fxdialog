@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="202.0" prefHeight="202.0" prefWidth="382.0" styleClass="root" xmlns:fx="http://javafx.com/fxml" fx:controller="tabs.MessageDialogController">
+<AnchorPane id="AnchorPane" minHeight="201.9609375" prefHeight="201.9609375" prefWidth="382.0" styleClass="root" xmlns:fx="http://javafx.com/fxml" fx:controller="tabs.MessageDialogController">
   <children>
     <AnchorPane id="AnchorPane" layoutX="6.0" layoutY="5.0" prefHeight="192.0" prefWidth="370.0" styleClass="root">
       <children>

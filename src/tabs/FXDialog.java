@@ -20,20 +20,42 @@ public class FXDialog extends Application {
     
     private static Parent root;
     private static Stage primaryStage;
-    protected static FXDialog main;
-    private Response response;
+    private static FXDialog main;
     
     static {
         main = new FXDialog();
     }
     
     public FXDialog() {
-        primaryStage = new Stage();
+        try {
+            primaryStage = new Stage();
 
-        primaryStage.centerOnScreen();
-        primaryStage.initModality(Modality.APPLICATION_MODAL);
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
+            root = FXMLLoader.load(getClass().getResource("FXDialogUI.fxml"));
+            Scene scene = new Scene(root, Color.TRANSPARENT);
 
+            primaryStage.centerOnScreen();
+            primaryStage.setScene(scene);
+            primaryStage.initModality(Modality.APPLICATION_MODAL);
+            primaryStage.initStyle(StageStyle.TRANSPARENT);
+
+            root.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent me) {
+                    initX = me.getScreenX() - primaryStage.getX();
+                    initY = me.getScreenY() - primaryStage.getY();
+                }
+            });
+
+            root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent me) {
+                    primaryStage.setX(me.getScreenX() - initX);
+                    primaryStage.setY(me.getScreenY() - initY);
+                }
+            });
+        } catch (IOException ex) {
+            Logger.getLogger(FXDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -62,55 +84,28 @@ public class FXDialog extends Application {
         });
     }
 
-    private void replaceScene(DialogType dialog) {
-        try {
-            root = FXMLLoader.load(getClass().getResource(dialog.getFXML()));
-            
-            Scene scene = new Scene(root, Color.TRANSPARENT);
-            primaryStage.setScene(scene);
-
-            root.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent me) {
-                    initX = me.getScreenX() - primaryStage.getX();
-                    initY = me.getScreenY() - primaryStage.getY();
-                }
-            });
-
-            root.setOnMouseDragged(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent me) {
-                    primaryStage.setX(me.getScreenX() - initX);
-                    primaryStage.setY(me.getScreenY() - initY);
-                }
-            });
-        } catch (IOException ex) {
-            Logger.getLogger(FXDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     private void showDialog() {
+        primaryStage.show();
         scaleTransition(0, 0, 1, 1, 0.6);
-        primaryStage.showAndWait();
     }
 
-    public static void showMessageDialog(String message, Dialog messageType) {
-        main.replaceScene(DialogType.MESSAGE);
+    public static void showMessageDialog(String message, Dialog dialogType) {
+        main.showDialog();
 
-        if (messageType == Dialog.ERROR) {
-            MessageDialogController.icon.setImage(new Image("/tabs/icons/" + messageType.getIcon()));
+        if (dialogType == Dialog.ERROR) {
+            MessageDialogController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
             MessageDialogController.headerPane.setStyle("-fx-background-color: red;");
             MessageDialogController.lblHeader.setText("ERROR");
 
             primaryStage.setTitle("Error");
-        } else if (messageType == Dialog.INORMATION) {
-            MessageDialogController.icon.setImage(new Image("/tabs/icons/" + messageType.getIcon()));
+        } else if (dialogType == Dialog.INORMATION) {
+            MessageDialogController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
             MessageDialogController.headerPane.setStyle("-fx-background-color: blue;");
             MessageDialogController.lblHeader.setText("INFORMATION");
 
             primaryStage.setTitle("Information");
-        } else if (messageType == Dialog.WARNING) {
-            MessageDialogController.icon.setImage(new Image("/tabs/icons/" + messageType.getIcon()));
+        } else if (dialogType == Dialog.WARNING) {
+            MessageDialogController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
             MessageDialogController.headerPane.setStyle("-fx-background-color: orange;");
             MessageDialogController.lblHeader.setText("WARNING");
 
@@ -118,30 +113,6 @@ public class FXDialog extends Application {
         }
 
         MessageDialogController.lblMsg.setText(message);
-        
-        main.showDialog();
-    }
-    
-    public static FXDialog showConfirmDialog(String caption, ConfirmationType confirmType) {
-        main.replaceScene(DialogType.CONFIRMATION);
-        
-        if(confirmType == ConfirmationType.DELETE_OPTION) {
-            ConfirmationDialogController.btnAccept.setText("Delete");
-            ConfirmationDialogController.btnAccept.setStyle("-fx-base: red;");
-            ConfirmationDialogController.btnDecline.setText("Don't Delete");  
-        }
-        
-        ConfirmationDialogController.lblMsg.setText(caption);
-        main.showDialog();
-        
-        return main;
-    }
-    
-    public Response getResponse() {
-        return response;
-    }
-    
-    protected void setReponse(Response response) {
-        this.response = response;
+
     }
 }
