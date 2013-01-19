@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="202.0" minWidth="-Infinity" prefHeight="202.0" prefWidth="387.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="tabs.ConfirmationDialogController">
+<AnchorPane id="AnchorPane" minHeight="202.0" minWidth="-Infinity" prefHeight="202.0" prefWidth="382.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="tabs.ConfirmationDialogController">
   <children>
-    <AnchorPane id="AnchorPane" layoutX="9.0" layoutY="5.0" prefHeight="192.0" prefWidth="370.0" styleClass="root">
+    <AnchorPane id="AnchorPane" layoutX="6.0" layoutY="5.0" prefHeight="192.0" prefWidth="370.0" styleClass="root">
       <children>
         <AnchorPane fx:id="headerPane" layoutY="18.0" prefHeight="36.0" prefWidth="395.9998779296875" style="-fx-background-color:gray;" AnchorPane.leftAnchor="-11.0" AnchorPane.rightAnchor="-11.0">
           <children>

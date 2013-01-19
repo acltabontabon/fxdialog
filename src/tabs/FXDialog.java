@@ -130,6 +130,11 @@ public class FXDialog extends Application {
             ConfirmationDialogController.btnAccept.setStyle("-fx-base: red;");
             ConfirmationDialogController.btnDecline.setText("Don't Delete");  
         }
+        else if(confirmType == ConfirmationType.YES_NO_OPTION) {
+            ConfirmationDialogController.btnAccept.setText("Yes");
+            ConfirmationDialogController.btnAccept.setStyle("-fx-base: blue;");
+            ConfirmationDialogController.btnDecline.setText("No");  
+        }
         
         ConfirmationDialogController.lblMsg.setText(caption);
         main.showDialog();
