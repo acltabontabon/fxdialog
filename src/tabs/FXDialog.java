@@ -1,23 +1,17 @@
 package tabs;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.ScaleTransition;
-import javafx.animation.ScaleTransitionBuilder;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
+import java.io.*;
+import java.util.logging.*;
+import javafx.animation.*;
+import javafx.application.*;
+import javafx.event.*;
+import javafx.fxml.*;
+import javafx.scene.*;
+import javafx.scene.image.*;
+import javafx.scene.input.*;
+import javafx.scene.paint.*;
+import javafx.stage.*;
+import javafx.util.*;
 
 public class FXDialog extends Application {
 
@@ -99,26 +93,26 @@ public class FXDialog extends Application {
         main.showDialog();
 
         if (dialogType == Dialog.ERROR) {
-            FXDialogUIController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
-            FXDialogUIController.headerPane.setStyle("-fx-background-color: red;");
-            FXDialogUIController.lblHeader.setText("ERROR");
+            MessageDialogController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
+            MessageDialogController.headerPane.setStyle("-fx-background-color: red;");
+            MessageDialogController.lblHeader.setText("ERROR");
 
             primaryStage.setTitle("Error");
         } else if (dialogType == Dialog.INORMATION) {
-            FXDialogUIController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
-            FXDialogUIController.headerPane.setStyle("-fx-background-color: blue;");
-            FXDialogUIController.lblHeader.setText("INFORMATION");
+            MessageDialogController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
+            MessageDialogController.headerPane.setStyle("-fx-background-color: blue;");
+            MessageDialogController.lblHeader.setText("INFORMATION");
 
             primaryStage.setTitle("Information");
         } else if (dialogType == Dialog.WARNING) {
-            FXDialogUIController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
-            FXDialogUIController.headerPane.setStyle("-fx-background-color: orange;");
-            FXDialogUIController.lblHeader.setText("WARNING");
+            MessageDialogController.icon.setImage(new Image("/tabs/icons/" + dialogType.getIcon()));
+            MessageDialogController.headerPane.setStyle("-fx-background-color: orange;");
+            MessageDialogController.lblHeader.setText("WARNING");
 
             primaryStage.setTitle("Warning");
         }
 
-        FXDialogUIController.lblMsg.setText(message);
+        MessageDialogController.lblMsg.setText(message);
 
     }
 }

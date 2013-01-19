@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-public class FXDialogUIController implements Initializable {
+public class MessageDialogController implements Initializable {
     
     @FXML protected static AnchorPane headerPane;
     @FXML protected static ImageView icon;
