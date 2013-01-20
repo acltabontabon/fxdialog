@@ -103,7 +103,7 @@ public class FXDialog extends Application {
             MessageDialogController.lblHeader.setText("ERROR");
 
             primaryStage.setTitle("Error");
-        } else if (messageType == Dialog.INORMATION) {
+        } else if (messageType == Dialog.INFORMATION) {
             MessageDialogController.icon.setImage(new Image("/tabs/icons/" + messageType.getIcon()));
             MessageDialogController.headerPane.setStyle("-fx-background-color: blue;");
             MessageDialogController.lblHeader.setText("INFORMATION");

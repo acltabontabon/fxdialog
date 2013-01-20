@@ -3,7 +3,7 @@ package tabs;
 public enum Dialog {
     
     ERROR("error.png"),
-    INORMATION("information.png"),
+    INFORMATION("information.png"),
     WARNING("warning.png");
     
     private String ico;
