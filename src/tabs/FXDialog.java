@@ -94,35 +94,33 @@ public class FXDialog extends Application {
         primaryStage.showAndWait();
     }
 
-    public static void showMessageDialog(String message, Dialog messageType) {
+    public static void showMessageDialog(String message, String title, Dialog messageType) {
         main.replaceScene(DialogType.MESSAGE);
 
         if (messageType == Dialog.ERROR) {
             MessageDialogController.icon.setImage(new Image("/tabs/icons/" + messageType.getIcon()));
             MessageDialogController.headerPane.setStyle("-fx-background-color: red;");
-            MessageDialogController.lblHeader.setText("ERROR");
 
             primaryStage.setTitle("Error");
         } else if (messageType == Dialog.INFORMATION) {
             MessageDialogController.icon.setImage(new Image("/tabs/icons/" + messageType.getIcon()));
             MessageDialogController.headerPane.setStyle("-fx-background-color: blue;");
-            MessageDialogController.lblHeader.setText("INFORMATION");
 
             primaryStage.setTitle("Information");
         } else if (messageType == Dialog.WARNING) {
             MessageDialogController.icon.setImage(new Image("/tabs/icons/" + messageType.getIcon()));
             MessageDialogController.headerPane.setStyle("-fx-background-color: orange;");
-            MessageDialogController.lblHeader.setText("WARNING");
 
             primaryStage.setTitle("Warning");
         }
-
-        MessageDialogController.lblMsg.setText(message);
         
+        MessageDialogController.lblHeader.setText(title);
+        MessageDialogController.lblMsg.setText(message);
+  
         main.showDialog();
     }
     
-    public static FXDialog showConfirmDialog(String caption, ConfirmationType confirmType) {
+    public static FXDialog showConfirmDialog(String caption, String title, ConfirmationType confirmType) {
         main.replaceScene(DialogType.CONFIRMATION);
         
         if(confirmType == ConfirmationType.DELETE_OPTION) {
@@ -136,7 +134,9 @@ public class FXDialog extends Application {
             ConfirmationDialogController.btnDecline.setText("No");  
         }
         
+        ConfirmationDialogController.lblHeader.setText(title);
         ConfirmationDialogController.lblMsg.setText(caption);
+        primaryStage.setTitle("Confirmation");
         main.showDialog();
         
         return main;
