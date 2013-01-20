@@ -68,6 +68,7 @@ public class FXDialog extends Application {
             
             Scene scene = new Scene(root, Color.TRANSPARENT);
             primaryStage.setScene(scene);
+            primaryStage.centerOnScreen();
 
             root.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
