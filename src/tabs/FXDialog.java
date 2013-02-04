@@ -20,7 +20,7 @@ public class FXDialog extends Application {
     
     private static Parent root;
     private static Stage primaryStage;
-    protected static FXDialog main;
+    private static FXDialog main;
     private Response response;
     
     static {
@@ -33,7 +33,6 @@ public class FXDialog extends Application {
         primaryStage.centerOnScreen();
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-
     }
 
     @Override
@@ -41,7 +40,19 @@ public class FXDialog extends Application {
         // do nothing...
     }
 
-    protected static void scaleTransition(double fromX, double fromY, double toX, double toY, double dur) {
+    void doInSequential(Animation... an) {
+        SequentialTransition st = SequentialTransitionBuilder.create()
+                .children(an)
+                .cycleCount(1)
+                .build();
+        st.play();
+    }
+    
+    FXDialog getInstance() {
+        return main;
+    }
+    
+    ScaleTransition doScale(double fromX, double fromY, double toX, double toY, double dur) {
         ScaleTransition scale = ScaleTransitionBuilder.create()
                 .node(root)
                 .duration(Duration.seconds(dur))
@@ -50,18 +61,24 @@ public class FXDialog extends Application {
                 .toX(toX)
                 .toY(toY)
                 .build();
-        scale.play();
-
+        
         scale.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent t) {
                 if (root.getScaleX() == 0) {
+                    System.gc();       
                     primaryStage.close();
                 }
             }
         });
+        return scale;
     }
 
+    private void showDialog() {
+        doInSequential(doScale(0.0, 0.01, 1, 0.01, 0.5), doScale(1, 0.01, 1, 1, 0.5));
+        primaryStage.showAndWait();
+    }
+    
     private void replaceScene(DialogType dialog) {
         try {
             root = FXMLLoader.load(getClass().getResource(dialog.getFXML()));
@@ -89,10 +106,9 @@ public class FXDialog extends Application {
             Logger.getLogger(FXDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    private void showDialog() {
-        scaleTransition(0, 0, 1, 1, 0.6);
-        primaryStage.showAndWait();
+    
+    void setReponse(Response response) {
+        this.response = response;
     }
 
     public static void showMessageDialog(String message, String title, Dialog messageType) {
@@ -145,9 +161,5 @@ public class FXDialog extends Application {
     
     public Response getResponse() {
         return response;
-    }
-    
-    protected void setReponse(Response response) {
-        this.response = response;
     }
 }

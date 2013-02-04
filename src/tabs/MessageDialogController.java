@@ -1,20 +1,19 @@
 package tabs;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import java.net.*;
+import java.util.*;
+import javafx.event.*;
+import javafx.fxml.*;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
 
-public class MessageDialogController implements Initializable {
+public class MessageDialogController extends FXDialog implements Initializable {
     
-    @FXML protected static AnchorPane headerPane;
-    @FXML protected static ImageView icon;
-    @FXML protected static Label lblHeader;
-    @FXML protected static Label lblMsg;
+    @FXML static AnchorPane headerPane;
+    @FXML static ImageView icon;
+    @FXML static Label lblHeader;
+    @FXML static Label lblMsg;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -22,6 +21,6 @@ public class MessageDialogController implements Initializable {
     }   
     
     @FXML private void ok(ActionEvent evt) {
-        FXDialog.scaleTransition(1, 1, 0, 0, 0.5);
+        getInstance().doInSequential(doScale(1, 1, 1, 0.01, 0.5), doScale(1, 0.01, 0.0, 0.01, 0.5));
     }
 }

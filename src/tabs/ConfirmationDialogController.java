@@ -1,24 +1,16 @@
 
 package tabs;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import java.net.*;
+import java.util.*;
+import javafx.event.*;
+import javafx.fxml.*;
+import javafx.scene.control.*;
 
-public class ConfirmationDialogController implements Initializable {
+public class ConfirmationDialogController extends MessageDialogController implements Initializable {
 
-    @FXML protected static AnchorPane headerPane;
-    @FXML protected static ImageView icon;
-    @FXML protected static Label lblHeader;
-    @FXML protected static Label lblMsg;
-    @FXML protected static Button btnAccept;
-    @FXML protected static Button btnDecline;
+    @FXML static Button btnAccept;
+    @FXML static Button btnDecline;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -26,12 +18,12 @@ public class ConfirmationDialogController implements Initializable {
     }    
     
     @FXML private void accept(ActionEvent evt) {
-        FXDialog.scaleTransition(1, 1, 0, 0, 0.5);
-        FXDialog.main.setReponse(Response.APPROVE);
+        getInstance().doInSequential(doScale(1, 1, 1, 0.01, 0.5), doScale(1, 0.01, 0.0, 0.01, 0.5));
+        setReponse(Response.APPROVE);
     }
     
     @FXML private void decline(ActionEvent evt) {
-        FXDialog.scaleTransition(1, 1, 0, 0, 0.5);
-        FXDialog.main.setReponse(Response.DECLINE);
+        getInstance().doInSequential(doScale(1, 1, 1, 0.01, 0.5), doScale(1, 0.01, 0.0, 0.01, 0.5));
+        setReponse(Response.DECLINE);
     }
 }
