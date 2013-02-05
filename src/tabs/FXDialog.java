@@ -147,7 +147,7 @@ public class FXDialog extends Application {
         }
         else if(confirmType == ConfirmationType.YES_NO_OPTION) {
             ConfirmationDialogController.btnAccept.setText("Yes");
-            ConfirmationDialogController.btnAccept.setStyle("-fx-base: blue;");
+            ConfirmationDialogController.btnAccept.setDefaultButton(true);
             ConfirmationDialogController.btnDecline.setText("No");  
         }
         
