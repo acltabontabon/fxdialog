@@ -21,7 +21,7 @@ public class FXDialog extends Application {
     private static Parent root;
     private static Stage primaryStage;
     private static FXDialog main;
-    private Response response;
+    private static Response response;
     
     static {
         main = new FXDialog();
@@ -107,10 +107,6 @@ public class FXDialog extends Application {
         }
     }
     
-    void setReponse(Response response) {
-        this.response = response;
-    }
-
     public static void showMessageDialog(String message, String title, Dialog messageType) {
         main.replaceScene(DialogType.MESSAGE);
 
@@ -157,6 +153,10 @@ public class FXDialog extends Application {
         main.showDialog();
         
         return main;
+    }
+    
+    void setReponse(Response response) {
+        FXDialog.response = response;
     }
     
     public Response getResponse() {
