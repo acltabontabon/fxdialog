@@ -1,3 +1,12 @@
+/*
+ * THIS IS AN OPEN-SOURCE PROJECT. FXDIALOG IS A CUSTOM DIALOG BOX FOR JAVAFX 2.X 
+ * CREATED BY ALVIN CRIS TABONTABON. ANYONE CAN ALTER THE SOURCE CODE SKY IS THE
+ * LIMIT.
+ * 
+ * PLEASE SEND FEEDBACK IF YOU LIKE MY WORK OR IF YOU HAVE ANY SUGGESTIONS.
+ * @email: tabs5894@gmail.com
+ */
+
 package tabs;
 
 import java.io.*;
@@ -13,8 +22,8 @@ import javafx.stage.*;
 
 public class FXDialog extends Application {
 
-    private double initX;
-    private double initY;
+    private double initX;       // X-Coordinate location of the dialog
+    private double initY;       // Y-Coordinate location of the dialog
     
     private static Parent root;
     private static FXDialog main;
@@ -32,13 +41,19 @@ public class FXDialog extends Application {
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
     }
-
+    
     @Override
     public void start(final Stage stage) throws Exception { }
     
-    private void replaceScene(DialogType dialog) {
+    /*
+     * The purpose of this method is to change the scene depending on the speciied 
+     * type of the dialog will be shown
+     * 
+     * @param dialogType
+     */
+    private void replaceScene(DialogType dialogType) {
         try {
-            root = FXMLLoader.load(getClass().getResource(dialog.getFXML()));
+            root = FXMLLoader.load(getClass().getResource(dialogType.getFXML()));
             
             Scene scene = new Scene(root, Color.TRANSPARENT);
             primaryStage.setScene(scene);
@@ -64,6 +79,12 @@ public class FXDialog extends Application {
         }
     }
     
+    /*
+     * The purpose of this method is to retain the selected action in the confirmation
+     * dialog.
+     * 
+     * @param response;
+     */
     protected void setReponse(Response response) { FXDialog.response = response; }
     
     public Response getResponse() { return response; }
