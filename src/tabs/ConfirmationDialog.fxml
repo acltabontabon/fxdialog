@@ -11,15 +11,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="409.0" style="-fx-background-color:transparent;" xmlns:fx="http://javafx.com/fxml" fx:controller="tabs.ConfirmationDialogController">
+<AnchorPane id="AnchorPane" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color:transparent;" xmlns:fx="http://javafx.com/fxml" fx:controller="tabs.ConfirmationDialogController">
   <children>
-    <AnchorPane id="AnchorPane" prefHeight="-1.0" prefWidth="409.0" styleClass="root" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane id="AnchorPane" prefHeight="-1.0" prefWidth="-1.0" styleClass="root" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-        <VBox id="VBox" alignment="CENTER" layoutX="15.0" layoutY="71.0" spacing="5.0">
+        <VBox id="VBox" alignment="CENTER" layoutY="71.0" prefHeight="-1.0" prefWidth="-1.0" spacing="5.0" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="36.0">
           <children>
-            <StackPane id="StackPane">
+            <StackPane id="StackPane" alignment="CENTER_LEFT">
               <children>
-                <Label fx:id="lblMsg" alignment="TOP_LEFT" minWidth="-1.0" prefHeight="-1.0" prefWidth="358.0" style="" text="This is sample dialog in javafx entitled FXDialog. Please send to me your valuable feedback." textAlignment="JUSTIFY" wrapText="true">
+                <Label fx:id="lblMsg" alignment="TOP_LEFT" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" style="" text="(MESSAGE HERE)" textAlignment="JUSTIFY" wrapText="true">
                   <font>
                     <Font size="13.0" />
                   </font>
@@ -37,19 +37,19 @@
             </HBox>
           </children>
         </VBox>
-        <HBox id="headerPane" alignment="CENTER_LEFT" layoutY="14.0" prefHeight="-1.0" prefWidth="392.0" style="-fx-background-color:black;" AnchorPane.leftAnchor="-11.0" AnchorPane.rightAnchor="-11.0">
+        <HBox id="headerPane" alignment="CENTER" layoutY="14.0" padding="$x1" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color:black;" AnchorPane.leftAnchor="-11.0" AnchorPane.rightAnchor="-11.0">
           <children>
-            <Label fx:id="lblHeader" alignment="CENTER_LEFT" prefWidth="-1.0" text="CONFIRMATION" textFill="WHITE">
+            <Label fx:id="lblHeader" alignment="CENTER_LEFT" prefWidth="-1.0" text="CONFIRMATION" textFill="WHITE" HBox.hgrow="ALWAYS">
               <font>
                 <Font name="System Bold" size="25.0" />
               </font>
+              <HBox.margin>
+                <Insets fx:id="x1" />
+              </HBox.margin>
             </Label>
           </children>
-          <padding>
-            <Insets left="90.0" />
-          </padding>
         </HBox>
-        <ImageView fx:id="icon" fitHeight="64.0" fitWidth="64.0" layoutX="14.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="icon" fitHeight="64.0" fitWidth="64.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="2.0">
           <image>
             <Image url="@icons/question64.png" />
           </image>
