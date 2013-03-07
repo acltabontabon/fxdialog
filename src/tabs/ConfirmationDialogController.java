@@ -18,12 +18,12 @@ public class ConfirmationDialogController extends MessageDialogController implem
     }    
     
     @FXML private void accept(ActionEvent evt) {
-        getInstance().doInSequential(doScale(1, 1, 1, 0.01, 0.5), doScale(1, 0.01, 0.0, 0.01, 0.5));
         setReponse(Response.APPROVE);
+        primaryStage.close();
     }
     
     @FXML private void decline(ActionEvent evt) {
-        getInstance().doInSequential(doScale(1, 1, 1, 0.01, 0.5), doScale(1, 0.01, 0.0, 0.01, 0.5));
         setReponse(Response.DECLINE);
+        primaryStage.close();
     }
 }

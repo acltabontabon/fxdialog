@@ -2,7 +2,6 @@ package tabs;
 
 import java.io.*;
 import java.util.logging.*;
-import javafx.animation.*;
 import javafx.application.*;
 import javafx.event.*;
 import javafx.fxml.*;
@@ -11,7 +10,6 @@ import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.paint.*;
 import javafx.stage.*;
-import javafx.util.*;
 
 public class FXDialog extends Application {
 
@@ -19,9 +17,9 @@ public class FXDialog extends Application {
     private double initY;
     
     private static Parent root;
-    private static Stage primaryStage;
     private static FXDialog main;
     private static Response response;
+    protected static Stage primaryStage;
     
     static {
         main = new FXDialog();
@@ -36,48 +34,7 @@ public class FXDialog extends Application {
     }
 
     @Override
-    public void start(final Stage stage) throws Exception {
-        // do nothing...
-    }
-
-    void doInSequential(Animation... an) {
-        SequentialTransition st = SequentialTransitionBuilder.create()
-                .children(an)
-                .cycleCount(1)
-                .build();
-        st.play();
-    }
-    
-    FXDialog getInstance() {
-        return main;
-    }
-    
-    ScaleTransition doScale(double fromX, double fromY, double toX, double toY, double dur) {
-        ScaleTransition scale = ScaleTransitionBuilder.create()
-                .node(root)
-                .duration(Duration.seconds(dur))
-                .fromX(fromX)
-                .fromY(fromY)
-                .toX(toX)
-                .toY(toY)
-                .build();
-        
-        scale.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                if (root.getScaleX() == 0) {
-                    System.gc();       
-                    primaryStage.close();
-                }
-            }
-        });
-        return scale;
-    }
-
-    private void showDialog() {
-        doInSequential(doScale(0.0, 0.01, 1, 0.01, 0.5), doScale(1, 0.01, 1, 1, 0.5));
-        primaryStage.showAndWait();
-    }
+    public void start(final Stage stage) throws Exception { }
     
     private void replaceScene(DialogType dialog) {
         try {
@@ -107,30 +64,31 @@ public class FXDialog extends Application {
         }
     }
     
+    protected void setReponse(Response response) { FXDialog.response = response; }
+    
+    public Response getResponse() { return response; }
+    
     public static void showMessageDialog(String message, String title, Dialog messageType) {
         main.replaceScene(DialogType.MESSAGE);
 
         if (messageType == Dialog.ERROR) {
             MessageDialogController.icon.setImage(new Image("/tabs/icons/" + messageType.getIcon()));
             MessageDialogController.headerPane.setStyle("-fx-background-color: red;");
-
-            primaryStage.setTitle("Error");
         } else if (messageType == Dialog.INFORMATION) {
             MessageDialogController.icon.setImage(new Image("/tabs/icons/" + messageType.getIcon()));
             MessageDialogController.headerPane.setStyle("-fx-background-color: blue;");
 
-            primaryStage.setTitle("Information");
         } else if (messageType == Dialog.WARNING) {
             MessageDialogController.icon.setImage(new Image("/tabs/icons/" + messageType.getIcon()));
             MessageDialogController.headerPane.setStyle("-fx-background-color: orange;");
-
-            primaryStage.setTitle("Warning");
         }
+        
+        primaryStage.setTitle(messageType.toString());
         
         MessageDialogController.lblHeader.setText(title);
         MessageDialogController.lblMsg.setText(message);
   
-        main.showDialog();
+        primaryStage.showAndWait();
     }
     
     public static FXDialog showConfirmDialog(String caption, String title, ConfirmationType confirmType) {
@@ -138,7 +96,8 @@ public class FXDialog extends Application {
         
         if(confirmType == ConfirmationType.DELETE_OPTION) {
             ConfirmationDialogController.btnAccept.setText("Delete");
-            ConfirmationDialogController.btnAccept.setStyle("-fx-base: red;");
+            ConfirmationDialogController.btnDecline.setDefaultButton(true);
+            ConfirmationDialogController.btnDecline.requestFocus();
             ConfirmationDialogController.btnDecline.setText("Don't Delete");  
         }
         else if(confirmType == ConfirmationType.YES_NO_OPTION) {
@@ -146,20 +105,18 @@ public class FXDialog extends Application {
             ConfirmationDialogController.btnAccept.setDefaultButton(true);
             ConfirmationDialogController.btnDecline.setText("No");  
         }
+        else if(confirmType == ConfirmationType.ACCEPT_DECLINE_OPTION) {
+            ConfirmationDialogController.btnAccept.setText("Accept");
+            ConfirmationDialogController.btnAccept.setDefaultButton(true);
+            ConfirmationDialogController.btnDecline.setText("Decline");  
+        }
         
         ConfirmationDialogController.lblHeader.setText(title);
         ConfirmationDialogController.lblMsg.setText(caption);
-        primaryStage.setTitle("Confirmation");
-        main.showDialog();
+        
+        primaryStage.setTitle("CONFIRMATION");
+        primaryStage.showAndWait();
         
         return main;
-    }
-    
-    void setReponse(Response response) {
-        FXDialog.response = response;
-    }
-    
-    public Response getResponse() {
-        return response;
     }
 }

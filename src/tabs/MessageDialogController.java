@@ -21,6 +21,6 @@ public class MessageDialogController extends FXDialog implements Initializable {
     }   
     
     @FXML private void ok(ActionEvent evt) {
-        getInstance().doInSequential(doScale(1, 1, 1, 0.01, 0.5), doScale(1, 0.01, 0.0, 0.01, 0.5));
+        primaryStage.close();
     }
 }
