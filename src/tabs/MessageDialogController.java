@@ -10,7 +10,7 @@ import javafx.scene.layout.*;
 
 public class MessageDialogController extends FXDialog implements Initializable {
     
-    @FXML static AnchorPane headerPane;
+    @FXML static HBox headerPane;
     @FXML static ImageView icon;
     @FXML static Label lblHeader;
     @FXML static Label lblMsg;
