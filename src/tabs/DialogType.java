@@ -3,7 +3,7 @@ package tabs;
 
 public enum DialogType {
     CONFIRMATION("ConfirmationDialog.fxml"),
-    INPUT(""),
+    INPUT("InputDialog.fxml"),
     MESSAGE("MessageDialog.fxml");
     
     private String fxml;

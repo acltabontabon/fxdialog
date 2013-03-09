@@ -11,7 +11,6 @@ package tabs;
 
 import java.io.*;
 import java.util.logging.*;
-import javafx.application.*;
 import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
@@ -20,30 +19,29 @@ import javafx.scene.input.*;
 import javafx.scene.paint.*;
 import javafx.stage.*;
 
-public class FXDialog extends Application {
+public class FXDialog {
 
     private double initX;       // X-Coordinate location of the dialog
     private double initY;       // Y-Coordinate location of the dialog
     
-    private static Parent root;
+    private Parent root;
+    private Response response;
     private static FXDialog main;
-    private static Response response;
-    protected static Stage primaryStage;
-    
-    static {
-        main = new FXDialog();
-    }
-    
+
+    protected Stage primaryStage;
+
     public FXDialog() {
         primaryStage = new Stage();
-
-        primaryStage.centerOnScreen();
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
     }
-    
-    @Override
-    public void start(final Stage stage) throws Exception { }
+
+    protected static FXDialog getInstance() {
+        if(main == null) {
+            main = new FXDialog();
+        }
+        return main;
+    }
     
     /*
      * The purpose of this method is to change the scene depending on the speciied 
@@ -54,7 +52,7 @@ public class FXDialog extends Application {
     private void replaceScene(DialogType dialogType) {
         try {
             root = FXMLLoader.load(getClass().getResource(dialogType.getFXML()));
-            
+
             Scene scene = new Scene(root, Color.TRANSPARENT);
             primaryStage.setScene(scene);
             primaryStage.centerOnScreen();
@@ -76,6 +74,8 @@ public class FXDialog extends Application {
             });
         } catch (IOException ex) {
             Logger.getLogger(FXDialog.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            System.gc();
         }
     }
     
@@ -85,35 +85,32 @@ public class FXDialog extends Application {
      * 
      * @param response;
      */
-    protected void setReponse(Response response) { FXDialog.response = response; }
-    
-    public Response getResponse() { return response; }
-    
-    public static void showMessageDialog(String message, String title, Dialog messageType) {
-        main.replaceScene(DialogType.MESSAGE);
+    protected void setReponse(Response response) { this.response = response; }
 
-        if (messageType == Dialog.ERROR) {
+    public static void showMessageDialog(String message, String title, Message messageType) {
+        getInstance().replaceScene(DialogType.MESSAGE);
+
+        if (messageType == Message.ERROR) {
             MessageDialogController.icon.setImage(new Image("/tabs/icons/" + messageType.getIcon()));
             MessageDialogController.headerPane.setStyle("-fx-background-color: red;");
-        } else if (messageType == Dialog.INFORMATION) {
+        } else if (messageType == Message.INFORMATION) {
             MessageDialogController.icon.setImage(new Image("/tabs/icons/" + messageType.getIcon()));
             MessageDialogController.headerPane.setStyle("-fx-background-color: blue;");
 
-        } else if (messageType == Dialog.WARNING) {
+        } else if (messageType == Message.WARNING) {
             MessageDialogController.icon.setImage(new Image("/tabs/icons/" + messageType.getIcon()));
             MessageDialogController.headerPane.setStyle("-fx-background-color: orange;");
         }
-        
-        primaryStage.setTitle(messageType.toString());
-        
+ 
         MessageDialogController.lblHeader.setText(title);
         MessageDialogController.lblMsg.setText(message);
-  
-        primaryStage.showAndWait();
+        
+        getInstance().primaryStage.setTitle(messageType.toString());
+        getInstance().primaryStage.showAndWait();
     }
-    
-    public static FXDialog showConfirmDialog(String caption, String title, ConfirmationType confirmType) {
-        main.replaceScene(DialogType.CONFIRMATION);
+
+    public static boolean showConfirmDialog(String caption, String title, ConfirmationType confirmType) {
+        getInstance().replaceScene(DialogType.CONFIRMATION);
         
         if(confirmType == ConfirmationType.DELETE_OPTION) {
             ConfirmationDialogController.btnAccept.setText("Delete");
@@ -135,9 +132,35 @@ public class FXDialog extends Application {
         ConfirmationDialogController.lblHeader.setText(title);
         ConfirmationDialogController.lblMsg.setText(caption);
         
-        primaryStage.setTitle("CONFIRMATION");
-        primaryStage.showAndWait();
+        getInstance().primaryStage.setTitle("CONFIRMATION");
+        getInstance().primaryStage.showAndWait();
         
-        return main;
+        return (getInstance().response.getValue() ? true : false);
+    }
+    
+    public static <T extends Object> T showInputDialog(String caption, String title) {
+        getInstance().replaceScene(DialogType.INPUT);
+        
+        InputDialogController.lblHeader.setText(title);
+        InputDialogController.lblMsg.setText(caption);
+        
+        getInstance().primaryStage.showAndWait();
+     
+        return (T) (getInstance().response.getValue() ? InputDialogController.inputField.getText().trim() : null);
+    }
+    
+    protected enum Response {
+
+        APPROVE(true),
+        DECLINE(false);
+        private boolean val;
+
+        private Response(boolean val) {
+            this.val = val;
+        }
+
+        public boolean getValue() {
+            return val;
+        }
     }
 }
