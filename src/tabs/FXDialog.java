@@ -138,7 +138,7 @@ public class FXDialog {
         return (getInstance().response.getValue() ? true : false);
     }
     
-    public static <T extends Object> T showInputDialog(String caption, String title) {
+    public static String showInputDialog(String caption, String title) {
         getInstance().replaceScene(DialogType.INPUT);
         
         InputDialogController.lblHeader.setText(title);
@@ -146,7 +146,7 @@ public class FXDialog {
         
         getInstance().primaryStage.showAndWait();
      
-        return (T) (getInstance().response.getValue() ? InputDialogController.inputField.getText().trim() : null);
+        return (getInstance().response.getValue() ? InputDialogController.inputField.getText().trim() : null);
     }
     
     protected enum Response {
